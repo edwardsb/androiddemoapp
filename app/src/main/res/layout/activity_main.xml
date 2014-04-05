@@ -45,7 +45,6 @@
         android:layout_alignLeft="@+id/radioGroup1"
         android:layout_below="@+id/radioGroup1"
         android:layout_marginTop="22dp"
-        android:text="@string/convert_button_text"
-        android:onClick="onClick"/>
+        android:text="@string/convert_button_text"/>
 
 </RelativeLayout>
