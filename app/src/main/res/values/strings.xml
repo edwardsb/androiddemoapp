@@ -7,4 +7,6 @@
     <string name="celsius_radio_text">Celsius</string>
     <string name="fahrenheit_radio_text">Fahrenheit</string>
     <string name="convert_button_text">Convert</string>
+    <string name="title_activity_result">ResultActivity</string>
+
 </resources>

@@ -1,6 +1,7 @@
 package com.example.mydemoapp.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
-
+    public final static String RESULT = "com.example.mydemoapp.app.RESULT";
     private EditText text;
     private Button button;
 
@@ -40,22 +41,23 @@ public class MainActivity extends Activity {
                         //
                         // user input a celsius value and would like it converted to Fahrenheit
                         if (celsiusButton.isChecked()) {
-                            text.setText(String
-                                    .valueOf(ConvertUtils.convertFtoC(inputValue)));
-                            celsiusButton.setChecked(false);
-                            fahrenheitButton.setChecked(true);
+                            startResultActivity(ConvertUtils.convertFtoC(inputValue));
                             //
                             // user input a fahrenheit value and would like it converted to celsius
                         } else {
-                            text.setText(String
-                                    .valueOf(ConvertUtils.convertCtoF(inputValue)));
-                            fahrenheitButton.setChecked(false);
-                            celsiusButton.setChecked(true);
+                            startResultActivity(ConvertUtils.convertCtoF(inputValue));
                         }
                         break;
                 }
             }
         });
+    }
+
+    public void startResultActivity(float convertedValue){
+        Intent intent = new Intent(getApplication().getApplicationContext(), ResultActivity.class);
+        intent.putExtra(RESULT, convertedValue);
+        startActivity(intent);
+
     }
 
 //    public void onClick(View view){
