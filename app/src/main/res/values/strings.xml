@@ -4,5 +4,7 @@
     <string name="app_name">MyDemoApp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="celsius_radio_text">Celsius</string>
+    <string name="fahrenheit_radio_text">Fahrenheit</string>
+    <string name="convert_button_text">Convert</string>
 </resources>
