@@ -1,8 +1,10 @@
 package com.example.mydemoapp.app;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.notification.NotificationListenerService;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+import android.app.Notification;
+import android.app.NotificationManager;
 
 
 public class MainActivity extends Activity {
@@ -41,11 +45,13 @@ public class MainActivity extends Activity {
                         //
                         // user input a celsius value and would like it converted to Fahrenheit
                         if (celsiusButton.isChecked()) {
-                            startResultActivity(ConvertUtils.convertFtoC(inputValue));
+//                            startResultActivity(ConvertUtils.convertFtoC(inputValue));
+                            createSytemNotification(ConvertUtils.convertFtoC(inputValue));
                             //
                             // user input a fahrenheit value and would like it converted to celsius
                         } else {
-                            startResultActivity(ConvertUtils.convertCtoF(inputValue));
+//                            startResultActivity(ConvertUtils.convertCtoF(inputValue));
+                            createSytemNotification(ConvertUtils.convertCtoF(inputValue));
                         }
                         break;
                 }
@@ -58,6 +64,26 @@ public class MainActivity extends Activity {
         intent.putExtra(RESULT, convertedValue);
         startActivity(intent);
 
+    }
+
+    public void createSytemNotification(float convertedValue){
+        Intent intent = new Intent(getApplication().getApplicationContext(), ResultActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(RESULT, convertedValue);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentText("New Temperature Conversion")
+                .setContentText(String.valueOf(convertedValue))
+                .setContentIntent(pendingIntent)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        notificationManager.notify(0, notification);
     }
 
 //    public void onClick(View view){

@@ -36,4 +36,12 @@ public class ResultActivity extends Activity {
         });
 
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        float result = intent.getFloatExtra(MainActivity.RESULT, 0);
+        textView = (TextView) findViewById(R.id.result_text);
+        textView.setText(String.valueOf(result));
+    }
 }
